@@ -1,6 +1,6 @@
-# Web-Boilerplate
+# Quso E-Commerce
 
-A Web Boilerplate for admin complete with authentication and list of available users
+E-Commerce web system.
 
 ## Getting Started
 
@@ -12,9 +12,7 @@ Nothing much. Just a web server that works.
 
 ## Built With
 
-* [Simple-Crud](https://github.com/ashrafkamarudin/simple-crud) - Simple Database CRUD
-* [Bootstrap4](https://v4-alpha.getbootstrap.com/) - Front-End Framework used  
-* [Fancy Login / Registration form](https://bootsnipp.com/snippets/vORj6) - Login/Registration Form used
+* [Web-Boilerplate](https://github.com/ashrafkamarudin/Web-Boilerplate) - Web-Boilerplate based on Bootstrap 4
 ## Authors
 
 * **Ashraf Kamarudin**
@@ -22,3 +20,10 @@ Nothing much. Just a web server that works.
 ## License
 
 This project is not licensed under anything or anyone and is free to be used
+
+## TODO
+
+- [ ] Add to cart using cookies for unregistered user
+- [ ] Checkout
+- [ ] Payment Gateway *if possible
+- [ ] Fix image upload

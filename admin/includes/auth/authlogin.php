@@ -61,8 +61,8 @@ class Login
 
                 // database query, getting all the info of the selected user (allows login via email address in the
                 // username field)
-                $query = "SELECT id, name, email, password, role
-                        FROM users
+                $query = "SELECT name, email, password, role
+                        FROM admins
                         WHERE name = :user_name OR email = :user_name";
                 $stmt = $this->db_connection->prepare($query);
                 $stmt->execute(array(':user_name' => $user_name));
@@ -79,7 +79,6 @@ class Login
                     if (password_verify($_POST['user_password'], $result_user['password'])) {
 
                         // write user data into PHP SESSION (a file on your server)
-                        $_SESSION['user_id'] = $result_user['id'];
                         $_SESSION['user_name'] = $result_user['name'];
                         $_SESSION['user_email'] = $result_user['email'];
                         $_SESSION['user_login_status'] = 1;

@@ -1,11 +1,6 @@
 <?php
 
-session_start();
-
-require_once '../../config.php';
-require_once '../../vendor/libs/auth/authlogin.php';
-require_once '../../vendor/libs/database.php';
-require_once '../../vendor/libs/functions.php';
+require_once '../includes/loader.php';
 
 $login = new login();
 
@@ -60,7 +55,7 @@ $user = $db->getID($id, 'users');
                     <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">Toggle Menu</a>
 
                     <input type="hidden" name="data" value="user">
-                    <input type="hidden" name="id" value="<?php echo $bus['id']; ?>">
+                    <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
 
                     <button type="submit" class="btn btn-success" name="update">Update</button>
                 </form>

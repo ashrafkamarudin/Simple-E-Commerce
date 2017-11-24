@@ -2,15 +2,8 @@
 
 require_once '../includes/loader.php';
 
-$login = new login();
-
-if ($login->isUserLoggedIn() == false || $_SESSION['user_role'] == "user") {
-    setflash(array('Unauthorized access ! Please login to continue.'), 'fail');
-    redirect(URL . 'admin/auth'); // redirect to authenticate page
-}
-
 $db = new database();
-$users = $db->read(array('*'), 'users');
+$products = $db->read(array('*'), 'products');
 
 $i = 1; // initialize count value
 
@@ -40,28 +33,29 @@ $i = 1; // initialize count value
                 <?php Flash(); // display flash message ?>
 
                 <h1>
-                    Users List
+                    Product List
+                    <a href="add.php" class="btn btn-info pull-right">Add New Product</a>
                 </h1><br>
                 
                 <table id="example" class="display table" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th>Username</th>
-                            <th>E-mail</th>
-                            <th>Role</th>
+                            <th class="col-md-3">Image</th>
+                            <th class="col-md-5">Name</th>
+                            <th class="col-md-1">Price</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($users as $user) { ?>
+                        <?php foreach ($products as $product) { ?>
                         	<tr>
                                 <td><?php echo $i++; ?></td>
-            	                <td><?php echo $user['name']; ?></td>
-                                <td><?php echo $user['email']; ?></td>
-                                <td><?php echo $user['role']; ?></td>
-            	                <td><a href="update.php?id=<?php echo $user['id']; ?>"><i class="btn btn-success glyphicon glyphicon-edit"></i></a>
-            	                	<a href="../action.php?data=user&delete=<?php echo $user['id']; ?>"><i class="btn btn-danger glyphicon glyphicon-trash" onclick="return confirm('Are you sure?')"></i></a></td>
+                                <td><img class="img-thumbnail img-fluid" width="200px" height="200px" src="../../assets/product_images/<?php echo $product['image']; ?>"></td>
+            	                <td><?php echo $product['name']; ?></td>
+                                <td><?php echo $product['price']; ?></td>
+            	                <td><a href="update.php?id=<?php echo $product['id']; ?>"><i class="btn btn-success glyphicon glyphicon-edit"></i></a>
+            	                	<a href="../action.php?data=products&delete=<?php echo $product['id']; ?>&oldFilename=<?php echo $product['image']; ?>"><i class="btn btn-danger glyphicon glyphicon-trash" onclick="return confirm('Are you sure?')"></i></a></td>
             	            </tr>
                         <?php } ?>
                     </tbody>

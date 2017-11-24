@@ -1,0 +1,65 @@
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template-overviews/shop-homepage)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+
+body {
+  padding-top: 100px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 100px;
+  }
+}
+
+.form-modal {
+	padding: 5% 15% 15% 10%
+}
+
+a {
+	color: #01d1b2;
+}
+
+.nav-bg {
+	color: #000;
+	border-color: #01d1b2;
+}
+
+.navbar a {
+	color: #000;
+}
+
+.logo {
+	height: 50px;
+	width: 100px;
+	margin: 0 auto;
+}
+
+.logo .center {
+}
+
+.btn-primary {
+  	color: #fff;
+	background-color: #01d1b2;
+	border-color: #20c997;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #20c997;
+  border-color: #01d1b2;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(1, 209, 178, 0.5);
+}
+
+.btn-primary:not([disabled]):not(.disabled):active, .btn-primary:not([disabled]):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #01d1b2;
+  border-color: #20c997;
+  box-shadow: 0 0 0 0.2rem rgba(1, 209, 178, 0.5);
+}

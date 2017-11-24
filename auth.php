@@ -2,15 +2,15 @@
 
 session_start();
 
-require_once '../config.php';
-require_once 'includes/auth/authlogin.php';
-require_once 'includes/auth/authregister.php';
-require_once '../vendor/libs/database.php';
-require_once '../vendor/libs/functions.php';
+require_once 'config.php';
+require_once 'vendor/libs/auth/authlogin.php';
+require_once 'vendor/libs/auth/authregister.php';
+require_once 'vendor/libs/database.php';
+require_once 'vendor/libs/functions.php';
 
 if (isset($_POST['register'])) {
 
-	$redirect = 'auth';
+	$redirect = 'home';
 	$registration = new Registration(); // create a new registration object - registration happens here
 
 	setflash($registration->errors, 'fail');
@@ -20,19 +20,20 @@ if (isset($_POST['register'])) {
 
 } elseif (isset($_POST['login'])) {
 
-	$redirect = 'auth';
+	$redirect = 'home';
 	$login = new login();
 
 	setflash($login->errors, 'fail');
 	if (empty($login->errors)) {
-		$_SESSION["role"] = "admin";
+		$_SESSION["role"] = "user";
 		setflash($login->messages, 'success');
-		$redirect = 'users';
 	}
 } elseif (isset($_GET['logout'])) {
 	
 	$login = new login();
-	$redirect = 'auth';
+	$redirect = 'home';
 }
 
-redirect(URL . 'admin/' . $redirect);
+var_dump($_POST);
+
+redirect(URL . $redirect);
