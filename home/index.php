@@ -30,14 +30,15 @@ $i = 1; // initialize count value
 
         <div class="col-lg-3 my-4">
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+            <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtn" type="submit"><i class="fa fa-search"></i></button>
           </form>
 
-          <h1 class="my-4">Shop Name</h1>
+          <h1 class="my-4">Categories</h1>
           <div class="list-group">
+            <a href="#" class="list-group-item">All</a>
             <?php foreach ($categories as $key => $category): ?>
-             <a href="#" class="list-group-item"><?php echo $category['name']; ?></a>
+             <a href="#" class="list-group-item category" value="test"><?php echo $category['name']; ?></a>
             <?php endforeach ?>
           </div>
 
@@ -75,30 +76,7 @@ $i = 1; // initialize count value
             </a>
           </div>
 
-          <div class="row">
-
-          <?php foreach ($products as $key => $product): ?>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="../assets/product_images/<?php echo $product['image']; ?>" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="../product/index.php?id=<?php echo $product['id']; ?>"><?php echo $product['name']; ?></a>
-                  </h4>
-                  <h5>RM <?php echo $product['price']; ?></h5>
-                  <p class="card-text"><?php echo $product['description']; ?></p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                  <a href="../cart.php?action=add&id=<?php echo $product['id']; ?>" class="btn btn-primary pull-right">add to cart</a>
-                </div>
-              </div>
-            </div>
-            
-          <?php endforeach ?>
-
-          </div>
+          <div class="row" id="products"></div>
           <!-- /.row -->
 
         </div>
@@ -113,6 +91,39 @@ $i = 1; // initialize count value
     <!-- Footer -->
     <?php require_once '../includes/authModal.html'; ?>
     <?php require_once '../includes/footer.html'; ?>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $.ajax({
+          url : "../product.php",
+          method: "POST",
+          success : function(data){
+            $("#products").html(data);
+          }
+        })
+      });
+
+      $('.category').click(function() {
+        $.ajax({
+          url : "../product.php",
+          method: "POST",
+          data  : {category: $(this).html()},
+          success : function(data){
+            $("#products").html(data);
+          }
+        })
+      });
+      $('#searchBtn').click(function() {
+        $.ajax({
+          url : "../product.php",
+          method: "POST",
+          data  : {search: $('#search').val()},
+          success : function(data){
+            $("#products").html(data);
+          }
+        })
+      });
+    </script>
 
   </body>
 
