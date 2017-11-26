@@ -6,8 +6,6 @@ require_once '../includes/loader.php';
 $products = $db->run('SELECT * FROM cart INNER JOIN products ON products.id = cart.product_id');
 $categories = $db->read(array('*'), 'categories');
 
-$i = 1; // initialize count value
-
 ?>
 
 <!DOCTYPE html>
