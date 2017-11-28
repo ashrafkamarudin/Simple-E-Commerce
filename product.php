@@ -14,7 +14,7 @@ extract($_POST);
 
 if (isset($category)) {
   $products = $db->run("
-    SELECT products.name, products.image, products.price, products.description 
+    SELECT products.id, products.name, products.image, products.price, products.description 
     FROM products
     INNER JOIN categories ON products.category = categories.id 
     WHERE categories.name =  '$category'");

@@ -2,10 +2,15 @@
 
 require_once '../includes/loader.php';
 
-//$products = $db->read(array('*'), 'cart');
-$products = $db->run('SELECT * FROM cart INNER JOIN products ON products.id = cart.product_id');
-$categories = $db->read(array('*'), 'categories');
+$ip_add = getenv("REMOTE_ADDR");
 
+//$products = $db->read(array('*'), 'cart');
+$arg = array(':ip_add' => $ip_add);
+$products = $db->run('SELECT * FROM cart INNER JOIN products ON products.id = cart.product_id WHERE cart.ip_add =:ip_add AND cart.user_id=-1', $arg);
+
+if ($login->isUserLoggedIn()) {
+  $products = $db->run('SELECT * FROM cart INNER JOIN products ON products.id = cart.product_id WHERE cart.ip_add =:ip_add', $arg);
+}
 ?>
 
 <!DOCTYPE html>
@@ -76,7 +81,7 @@ $categories = $db->read(array('*'), 'categories');
               <td><a href="../home" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
               <td colspan="2" class="hidden-xs"></td>
               <td class="hidden-xs text-center"><strong id="total1">Total $1.99</strong></td>
-              <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+              <td><a href="../checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
             </tr>
           </tfoot>
         </table>

@@ -4,7 +4,13 @@ require_once '../includes/loader.php';
 
 $id = $_GET['id'];
 $product = $db->getID($id, 'products');
+//$reviews = $db->read(array('*'), 'product_reviews');
+
+$reviews = $db->run('SELECT * FROM product_reviews INNER JOIN users ON product_reviews.user_id = users.id WHERE product_reviews.product_id = ' . $id);
+
 $categories = $db->read(array('*'), 'categories');
+
+require_once '../includes/reviewModal.php';
 
 ?>
 
@@ -41,7 +47,7 @@ $categories = $db->read(array('*'), 'categories');
         <div class="col-lg-9">
 
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="../../assets/product_images/<?php echo $product['image']; ?>" alt="">
+            <img class="card-img-top img-fluid" src="../assets/product_images/<?php echo $product['image']; ?>" alt="">
             <div class="card-body">
               <h3 class="card-title"><?php echo $product['name']; ?></h3>
               <h4>RM <?php echo $product['price']; ?></h4>
@@ -57,16 +63,12 @@ $categories = $db->read(array('*'), 'categories');
               Product Reviews
             </div>
             <div class="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <a href="#" class="btn btn-success">Leave a Review</a>
+              <?php foreach ($reviews as $key => $review): ?>
+                <p><?php echo $review['review']; ?></p>
+                <small class="text-muted">Posted by <?php echo $review['name']; ?> on <?php echo $review['post_at']; ?></small>
+                <hr>
+              <?php endforeach ?>
+              <a href="#" class="btn btn-success" data-toggle="modal" data-target="#reviewModal">Leave a Review</a>
             </div>
           </div>
           <!-- /.card -->
