@@ -3,7 +3,7 @@
 require_once '../includes/loader.php';
 
 $db = new database();
-$products = $db->read(array('*'), 'products');
+$checkouts = $db->read(array('*'), 'checkout');
 
 $i = 1; // initialize count value
 
@@ -41,22 +41,28 @@ $i = 1; // initialize count value
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th class="col-md-3">Image</th>
-                            <th class="col-md-5">Name</th>
-                            <th class="col-md-1">Price</th>
+                            <th>Name</th>
+                            <th>Item</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Zip</th>
+                            <th>Quantity</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($products as $product) { ?>
+                        <?php foreach ($checkouts as $checkout) { ?>
                         	<tr>
                                 <td><?php echo $i++; ?></td>
-                                <td><img class="img-thumbnail img-fluid" width="200px" height="200px" src="../../assets/product_images/<?php echo $product['image']; ?>"></td>
-            	                <td><?php echo $product['name']; ?></td>
-                                <td><?php echo $product['price']; ?></td>
+                                <td><?php echo $checkout['name']; ?></td>
+                                <td><?php echo $checkout['address']; ?></td>
+                                <td><?php echo $checkout['city']; ?></td>
+                                <td><?php echo $checkout['state']; ?></td>
+                                <td><?php echo $checkout['zip']; ?></td>
+            	                <td><?php echo $checkout['product_id']; ?></td>
+                                <td><?php echo $checkout['quantity']; ?></td>
             	                <td>
-                                    <a href="update.php?id=<?php echo $product['id']; ?>"><i class="btn btn-success glyphicon glyphicon-edit"></i></a>
-                                    <a href="updateImage.php?id=<?php echo $product['id']; ?>"><i class="btn btn-success glyphicon glyphicon-picture"></i></a>
             	                	<a href="../action.php?data=products&delete=<?php echo $product['id']; ?>&oldFilename=<?php echo $product['image']; ?>"><i class="btn btn-danger glyphicon glyphicon-trash" onclick="return confirm('Are you sure?')"></i></a></td>
             	            </tr>
                         <?php } ?>

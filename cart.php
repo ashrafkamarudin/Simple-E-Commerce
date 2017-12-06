@@ -84,4 +84,4 @@ echo "</pre>";
 
 //echo URL . $redirect;
 
-//redirect(URL . $redirect);
+redirect(URL . $redirect);

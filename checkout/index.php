@@ -31,46 +31,39 @@ $i = 1; // initialize count value
       <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
-          <form>
+          <form action="../checkout.php" method="post">
             <div class="form-row">
               <div class="form-group col-md-7">
                 <label for="inputEmail4">Name</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                <input type="test" name="name" class="form-control" id="inputEmail4" placeholder="Full Name">
               </div>
               <div class="form-group col-md-5">
                 <label for="inputPassword4">Contact No.</label>
-                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                <input type="text" name="phone" class="form-control" id="inputPassword4" placeholder="Contact Number">
               </div>
             </div>
             <div class="form-group">
               <label for="inputAddress">Address</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+              <input type="text" name="address" class="form-control" id="inputAddress" placeholder="Address">
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity">
+                <input type="text" name="city" class="form-control" id="inputCity">
               </div>
               <div class="form-group col-md-4">
                 <label for="inputState">State</label>
-                <select id="inputState" class="form-control">
+                <select id="inputState" name="state" class="form-control">
                   <option selected>Choose...</option>
                   <option>...</option>
                 </select>
               </div>
               <div class="form-group col-md-2">
                 <label for="inputZip">Zip</label>
-                <input type="text" class="form-control" id="inputZip">
+                <input type="text" name="zip" class="form-control" id="inputZip">
               </div>
             </div>
-            <div class="form-group">
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="checkbox"> Check me out
-                </label>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-primary">Checkout</button>
           </form>
         </div>
       </div>

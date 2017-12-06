@@ -4,11 +4,12 @@ require_once '../includes/loader.php';
 
 $id = $_GET['id'];
 $product = $db->getID($id, 'products');
-//$reviews = $db->read(array('*'), 'product_reviews');
 
-$reviews = $db->run('SELECT * FROM product_reviews INNER JOIN users ON product_reviews.user_id = users.id WHERE product_reviews.product_id = ' . $id);
+$reviews = $db->run('SELECT * FROM product_reviews INNER JOIN users ON product_reviews.user_id = users.id WHERE product_reviews.product_id = ' . $id)->fetchAll();
 
 $categories = $db->read(array('*'), 'categories');
+
+//var_dump($reviews);
 
 require_once '../includes/reviewModal.php';
 
@@ -68,7 +69,12 @@ require_once '../includes/reviewModal.php';
                 <small class="text-muted">Posted by <?php echo $review['name']; ?> on <?php echo $review['post_at']; ?></small>
                 <hr>
               <?php endforeach ?>
-              <a href="#" class="btn btn-success" data-toggle="modal" data-target="#reviewModal">Leave a Review</a>
+              <?php if ($login->isUserLoggedIn()) : ?>
+                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#reviewModal">Leave a Review</a>
+              <?php else : ?>
+                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#loginModal">Please Login</a>
+              <?php endif ?>
+              
             </div>
           </div>
           <!-- /.card -->
@@ -82,6 +88,7 @@ require_once '../includes/reviewModal.php';
     <!-- /.container -->
 
     <!-- Footer -->
+    <?php require_once '../includes/authModal.html'; ?>
     <?php require_once '../includes/footer.html'; ?>
 
   </body>

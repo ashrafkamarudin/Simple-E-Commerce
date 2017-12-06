@@ -9,7 +9,8 @@ $arg = array(':ip_add' => $ip_add);
 $products = $db->run('SELECT * FROM cart INNER JOIN products ON products.id = cart.product_id WHERE cart.ip_add =:ip_add AND cart.user_id=-1', $arg);
 
 if ($login->isUserLoggedIn()) {
-  $products = $db->run('SELECT * FROM cart INNER JOIN products ON products.id = cart.product_id WHERE cart.ip_add =:ip_add', $arg);
+  $arg = array(':ip_add' => $ip_add, ':user_id' => $_SESSION['user_id']);
+  $products = $db->run('SELECT * FROM cart INNER JOIN products ON products.id = cart.product_id WHERE cart.ip_add =:ip_add AND cart.user_id=:user_id', $arg);
 }
 ?>
 
@@ -52,7 +53,7 @@ if ($login->isUserLoggedIn()) {
               <tr>
               <td data-th="Product">
                 <div class="row">
-                  <div class="col-sm-3 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                  <div class="col-sm-3 hidden-xs"><img src="../assets/product_images/<?php echo $product['image']; ?>" alt="..." class="img-responsive"/></div>
                   <div class="col-sm-9">
                     <h4 class="nomargin"><?php echo $product['name']; ?></h4>
                     <p><?php echo $product['description']; ?></p>

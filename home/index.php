@@ -29,14 +29,14 @@ $i = 1; // initialize count value
       <div class="row">
 
         <div class="col-lg-3 my-4">
-          <form class="form-inline my-2 my-lg-0">
+          <div class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtn" type="submit"><i class="fa fa-search"></i></button>
-          </form>
+          </div>
 
           <h1 class="my-4">Categories</h1>
           <div class="list-group">
-            <a href="#" class="list-group-item">All</a>
+            <a href="../home" class="list-group-item">All</a>
             <?php foreach ($categories as $key => $category): ?>
              <a href="#" class="list-group-item category" value="test"><?php echo $category['name']; ?></a>
             <?php endforeach ?>

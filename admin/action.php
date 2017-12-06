@@ -7,7 +7,10 @@ require_once '../vendor/libs/auth/authlogin.php';
 require_once '../vendor/libs/database.php';
 require_once '../vendor/libs/functions.php';
 
+echo "<pre>";
 var_dump($_POST);
+var_dump($_FILES);
+echo "</pre>";
 
 extract($_POST);
 extract($_GET); // extract $_GET into var
@@ -74,27 +77,39 @@ if (isset($_POST['update'])) {
 	switch ($data) {
 		case 'product': // in case of product
 			$redirect = 'products';
-		    if ($db->update(array(
-		    	'name' => $product_name,
-		    	'category' => $product_category,
-				'price' => $product_price,
-				'description' => $product_desc,
-				'image' => $_FILES['product_img']['name']
-		    	), $id, 'products')) {
 
-		    	// move uploaded image into folder(upload_images)
-				if (move_uploaded_file($_FILES['product_img']['tmp_name'],"../assets/product_images/".$_FILES['product_img']['name'])) {
+			if (!isset($_FILES['product_img'])) {
+				if ($db->update(array(
+			    	'name' => $product_name,
+			    	'category' => $product_category,
+					'price' => $product_price,
+					'description' => $product_desc
+			    	), $id, 'products')) {
 
-					$filepath = '../assets/product_images/' . $oldFilename;
-					if (file_exists($filepath)) {
-				    	unlink($filepath);
-				    }
+					setFlash(array('Product has been updated.'), 'success');
+					break;
+				}    
+		    } elseif (isset($_FILES['product_img'])) {
+		    	$fileName = date("d-m-Y H:i:sa").$_FILES['product_img']['name'];
+		    	if ($db->update(array(
+					'image' => $fileName
+			    	), $id, 'products')) {
 
-					setFlash(array('Product has been updated'), 'success');
+		    		// move uploaded image into folder(upload_images)
+					if (move_uploaded_file($_FILES['product_img']['tmp_name'],"../assets/product_images/".$fileName)) {
+
+						$filepath = '../assets/product_images/' . $oldFilename;
+						if (file_exists($filepath)) {
+					    	unlink($filepath);
+					    }
+
+						setFlash(array('Product has been updated'), 'success');
+						break;
+					}
+
+					setFlash(array('Product image failed to be upload.'), 'fail');
 					break;
 				}
-				setFlash(array('Product has been updated but image failed to be upload.'), 'success');
-				break;
 		    }
 			break;
 
